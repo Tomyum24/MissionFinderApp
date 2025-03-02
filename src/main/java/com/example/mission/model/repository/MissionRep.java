@@ -1,6 +1,8 @@
 package com.example.mission.model.repository;
 
 import com.example.mission.model.model.Mission;
+
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -9,6 +11,12 @@ import java.util.stream.Collectors;
 @Repository
 public class MissionRep {
     private final Map<Integer, Mission> missions = new HashMap<>();
+    private int nextId = 6; // Начнем с 6, так как 1-5 уже есть
+
+    @Bean
+    public void init() {
+        System.out.println("MissionRep initialized!");
+    }
 
     public MissionRep() {
         missions.put(1, new Mission(1, "Merchant escort", "D", "Simple merchant security"));
@@ -24,6 +32,12 @@ public class MissionRep {
 
     public Mission getMissionById(int id) {
         return missions.get(id);
+    }
+
+    public void addMission(String name, String rank, String description) {
+        Mission newMission = new Mission(nextId, name, rank, description);
+        missions.put(nextId, newMission);
+        nextId++;
     }
 
     public List<Mission> findByRank(String rank) {

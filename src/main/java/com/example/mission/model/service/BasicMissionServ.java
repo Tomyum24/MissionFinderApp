@@ -13,6 +13,7 @@ import java.util.List;
 public class BasicMissionServ implements MissionServ {
 
     private final MissionRep missionRep;
+
     @Autowired
     public BasicMissionServ(MissionRep missionRep) {
         this.missionRep = missionRep;
@@ -27,4 +28,15 @@ public class BasicMissionServ implements MissionServ {
     public Mission findMission(int id) {
         return missionRep.getMissionById(id);
     }
+
+    @Override
+    public void addMission(String name, String rank, String description) {
+        missionRep.addMission(name, rank, description);
+    }
+
+    @Override
+    public List<Mission> findByRank(String rank) {
+        return missionRep.findByRank(rank);
+    }
+
 }
